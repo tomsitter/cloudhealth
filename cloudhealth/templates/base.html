@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<html>
+  <head>
+    <link rel="stylesheet", type="text/css", href="{% static 'cloudhealth/style.css' %}" /> 
+    <style>
+      input.required, error {
+        border: 2px solid red;
+      }
+    </style>
+    <title>{% block title %}Tagging Exploration{% endblock %}</title>
+  </head>
+  
+<body>
+    <div class = "page">
+      <header>
+        <div id="hero"></div>
+        <a class-"logo" href="#"></a>
+      </header>
+      <nav>
+    	  <a href="#">About</a>
+        <a href="#">Login</a>
+		    <a href="#">Register</a>
+      </nav>
+      <div id="sidebar">
+          {% block sidebar %}{% endblock %}
+      </div>
+  
+      <div id="content">
+          {% block content %}{% endblock %}
+          {% block main_content %}{% endblock %}
+      </div>
+      <footer>
+        &copy; Cloud Health CAS757 2014
+      </footer>
+    </div>
+</body>
+  
+</html>
