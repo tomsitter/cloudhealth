@@ -1,8 +1,9 @@
 from django.forms import ModelForm
+from .models import Patient
 
-Class PatientForm(ModelForm):
+class PatientForm(ModelForm):
   class Meta:
     model = Patient
-    fields ('gender', 'dateOfBirth', 'country', 'profilePicture')
+    fields = ('gender', 'dateOfBirth', 'country', 'profilePicture')
     
     

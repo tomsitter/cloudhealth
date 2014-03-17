@@ -1,39 +1,119 @@
 {% load staticfiles %}
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link rel="stylesheet", type="text/css", href="{% static 'cloudhealth/style.css' %}" /> 
-    <style>
-      input.required, error {
-        border: 2px solid red;
+    <meta charset="utf-8">
+    <title>{% block title %}Cloud Health{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href={% static "css/style.css" $} re;="stylesheet">
+    <link href={% static "css/bootstrap.css" %} rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
       }
     </style>
-    <title>{% block title %}Tagging Exploration{% endblock %}</title>
+    <link href={% static "css/bootstrap-responsive.css" %} rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons 
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    -->
   </head>
+
+  <body>
   
-<body>
-    <div class = "page">
-      <header>
-        <div id="hero"></div>
-        <a class-"logo" href="#"></a>
-      </header>
-      <nav>
-    	  <a href="#">About</a>
-        <a href="#">Login</a>
-		    <a href="#">Register</a>
-      </nav>
-      <div id="sidebar">
-          {% block sidebar %}{% endblock %}
-      </div>
+    <div class="bannerbar">
+      <div class="container">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+              <div class="navbar-inner">
+                <div class="container">
+                  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="brand" href="/home">Cloud Health</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                      <li class="active"><a href="/home">Home</a></li>
+                      <li><a href="/about">About</a></li>
+                      <li><a href="accounts/register">Register</a></li>
+                      <!--
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li class="nav-header">Nav header</li>
+                          <li><a href="#">Separated link</a></li>
+                          <li><a href="#">One more separated link</a></li>
+                        </ul>
+                      </li> -->
+                    </ul>
+                    
+                    <form class="navbar-form pull-right" method="post" action="dashboard">
+                      {% csrf_token %}
+                      <input class="span2" id="id_username" maxlength="254" name="username" type="text" placeholder="User name" />
+                      <input class="span2" id="id_password" name="password" type="password" placeholder="Password"/>
+                      <button type="submit" class="btn">Sign in</button>
+                    </form>
+                    
+                    
+                  </div><!--/.nav-collapse -->
+                </div>
+              </div>
+            </div>
+            <header>
+              <div id="hero"></div>
+              <a class="logo" href="#"></a>
+            </header>
+        
+            {% block content %}
+            {% endblock %}
+            <hr>
+            <footer>
+              <p>&copy; CAS757 Cloud Health, 2014</p>
+            </footer>
+
+      </div> <!-- /container -->
+    </div> <!-- bannerbar -->
+    <hr>
+
   
-      <div id="content">
-          {% block content %}{% endblock %}
-          {% block main_content %}{% endblock %}
-      </div>
-      <footer>
-        &copy; Cloud Health CAS757 2014
-      </footer>
-    </div>
-</body>
-  
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script src={% static "js/jquery.js" %}></script>
+    <script src={% static "js/bootstrap.min.js" %}></script>
+    <!--
+    <script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>
+    -->
+  </body>
 </html>
