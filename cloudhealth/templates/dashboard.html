@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock %}
 
+{% block links %}
+<li><a href="/profile">My Profile</a></li>
+<li class="active"><a href="/dashboard">My Dashboard</a></li>
+<li><a href="/messages">My Messages</a></li>
+{% endblock %}
+
 {% block content %}
 
-<h2> To Do </h2>
+<h2> Under development </h2>
 
 <iframe src="https://plot.ly/~cloudhealth/4", 
         width="692", 

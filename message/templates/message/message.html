@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+
+<link href="../css/special.css" rel="stylesheet" type="text/css">
+
+{% block links %}
+<li><a href="/profile">My Profile</a></li>
+<li><a href="/dashboard">My Dashboard</a></li>
+<li class="active"><a href="/messages">My Messages</a></li>
+{% endblock %}
+
+{% block content %}
+
+  {% if latest_message_list %}
+  <ul class="message_list">
+    {% for m in latest_message_list %}
+    <li style="border-style:solid; padding:20px">{{ m.message }}</li>
+    <br>
+    {% endfor %}
+  </ul>
+{% else %}
+<p>No messages are available.</p>
+{% endif %}
+
+{% endblock %}

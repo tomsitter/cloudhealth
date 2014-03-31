@@ -11,13 +11,12 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'^home$', TemplateView.as_view(template_name="home.html")),
     url(r'^profile', 'cloudhealth.views.profile', name='profile'),
-    url(r'^message', TemplateView.as_view(template_name="message.html")),
+    url(r'^messages', include('message.urls', namespace="message")),
     url(r'^dashboard', TemplateView.as_view(template_name="dashboard.html")),
     url(r'^about$', TemplateView.as_view(template_name="about.html")),
     url(r'^aboutdev', TemplateView.as_view(template_name="aboutdev.html")),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
