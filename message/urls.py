@@ -3,7 +3,7 @@ from message import views
 
 urlpatterns = patterns('', 
     # ex: /polls/
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^$', views.messages, name='messages'),
     # ex: /polls/5/
     # Note: ?P<poll_id> is the name that the match will be captured as
     #url(r'^(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),

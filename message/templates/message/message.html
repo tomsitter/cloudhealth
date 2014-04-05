@@ -9,17 +9,33 @@
 <li class="active"><a href="/messages">My Messages</a></li>
 {% endblock %}
 
+{% block account_actions %}
+<ul class="nav pull-right">
+<li><a href="/accounts/logout">Log out</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 
-  {% if latest_message_list %}
-  <ul class="message_list">
-    {% for m in latest_message_list %}
-    <li style="border-style:solid; padding:20px">{{ m.message }}</li>
+  {% if messages %}
+    {% for m in messages %}
+    <div class="col-sm-12" style="border-style:solid; padding:20px">
+      <strong> From: {{m.senderID.username}}
+      <br>
+      {{m.timeSent}}
+      </strong>
+      <hr>
+      {{ m.message }}
+    </div>
     <br>
     {% endfor %}
-  </ul>
-{% else %}
-<p>No messages are available.</p>
-{% endif %}
+  {% else %}
+    <p>No messages are available.</p>
+  {% endif %}
+
+  <form class="col-md-12" method='POST' action=''> {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit'>
+  </form>
 
 {% endblock %}
