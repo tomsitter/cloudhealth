@@ -7,9 +7,15 @@
 <li><a href="/messages">My Messages</a></li>
 {% endblock %}
 
+{% block account_actions %}
+<ul class="nav pull-right">
+<li><a href="/accounts/logout">Log out</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 
-<h2> Under development </h2>
+<h2> Welcome {{full_name}} </h2>
 
 <iframe src="https://plot.ly/~cloudhealth/4", 
         width="692", 

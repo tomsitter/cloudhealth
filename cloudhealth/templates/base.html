@@ -68,14 +68,14 @@
                         </ul>
                       </li> -->
                     </ul>
-                    
-                    <form class="navbar-form pull-right" method="post" action="">
+                    {% block account_actions %}
+                    <form class="navbar-form pull-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
                       {% csrf_token %}
                       <input class="span2" id="id_username" maxlength="254" name="username" type="text" placeholder="User name" />
                       <input class="span2" id="id_password" name="password" type="password" placeholder="Password"/>
                       <button type="submit" class="btn">Sign in</button>
                     </form>
-                    
+                    {% endblock %}
                     
                   </div><!--/.nav-collapse -->
                 </div>

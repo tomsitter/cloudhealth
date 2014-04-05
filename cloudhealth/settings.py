@@ -142,6 +142,10 @@ TEMPLATE_DIRS = (
 
 #was '/'
 LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_URL='/accounts/login'
+#ABSOLUTE_URL_OVERRIDES = {
+#    'auth.user': lambda o: "/profile",
+#}
 
 INSTALLED_APPS = (
     'django.contrib.auth',

@@ -7,11 +7,26 @@
 <li><a href="/messages">My Messages</a></li>
 {% endblock %}
 
-{% block content %}
-<h2> My Profile </h2>
+{% block account_actions %}
+<ul class="nav pull-right">
+<li><a href="/accounts/logout">Log out</a></li>
+</ul>
+{% endblock %}
 
-<form method='POST' action=''> {% csrf_token %}
-  {{ form.as_p }}
-  <input type='submit'>
-</form>
+{% block content %}
+<div class="container">
+  <h2> My Profile </h2>
+</div> <!-- /container -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"> Teexxtt<br>Some text on the right side I hope </div>
+    <div class="col-md-8">
+      <form method='POST' action=''> {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit'>
+      </form>
+    </div>
+  </div> <!-- /row -->
+</div> <!-- /container -->
 {% endblock %}
