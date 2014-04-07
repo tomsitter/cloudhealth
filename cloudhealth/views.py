@@ -17,8 +17,8 @@ def profile(request):
     p_instance = Patient.objects.get(userID=user)
   except Patient.DoesNotExist:
     p_instance = None
-    
-    
+  profile_form = PatientForm(instance=p_instance, prefix='profile_form')
+  
   try:
     d_instance = DiseaseList.objects.filter(user = user)
   except DiseaseList.DoesNotExist:
@@ -28,34 +28,32 @@ def profile(request):
   full_name = request.user.username
   
   if request.method == 'POST':
-    print request.POST
-    if 'disease_submit' in request.POST:
-      disease_form = DiseaseForm(request.POST, prefix='disease_form')
-      if disease_form.is_valid():     
-        save_it = disease_form.save(commit=False)
-        save_it.user = user
-        save_it.save()
+    #print request.POST
+    #if 'disease_submit' in request.POST:
+      #disease_form = DiseaseForm(request.POST, prefix='disease_form', instance=d_instance)
+      #if disease_form.is_valid():     
+      #  save_it = disease_form.save(commit=False)
+      #  save_it.user = user
+      #  save_it.save()
         #messages.add_message(request, messages.SUCCESS, 'Disease list updated successfully!')
-        #return render_to_response("profile.html",
-        #                          locals(),
-        #                          context_instance=RequestContext(request))
-    elif 'profile_submit' in request.POST:
+      #  return render_to_response("profile.html",
+      #                            locals(),
+      #                            context_instance=RequestContext(request))
+    if 'profile_submit' in request.POST:
       profile_form = PatientForm(request.POST, prefix='profile_form', instance=p_instance)
       if profile_form.is_valid():
         save_it = profile_form.save(commit=False)
         save_it.userID = request.user
         save_it.save()
         messages.add_message(request, messages.SUCCESS, 'Profile updated successfully!')
-        #return render_to_response("profile.html",
-        #                          locals(),
-        #                          context_instance=RequestContext(request))
+        return render_to_response("profile.html",
+                                  locals(),
+                                  context_instance=RequestContext(request))
   #else:
   #  form = PatientForm(instance = p_instance)
   #  disease_form = DiseaseForm()
-
-  form = PatientForm(instance=p_instance, prefix='profile_form')
     
-  disease_form = DiseaseForm(prefix='disease_form')
+  #disease_form = DiseaseForm(prefix='disease_form')
   
   #print form
     

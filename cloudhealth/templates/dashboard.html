@@ -21,7 +21,9 @@
     {% endfor %}
 {% endif %}
 
-
+<div class="container" style="padding:20px; 
+                              background-color: rgba(176,196,222, 0.5);
+                              border-radius:15px;">
 <h2> Welcome {{full_name}} </h2>
 
 <iframe src="https://plot.ly/~cloudhealth/4", 
@@ -30,6 +32,6 @@
         seamless="seamless", 
         scrolling="no">
 </iframe>
-
+</div>
 
 {% endblock %}

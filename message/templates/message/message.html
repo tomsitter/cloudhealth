@@ -19,37 +19,56 @@
 
 <style>
 #id_createmsg-message, #id_createthread-subject {
-    width: 1000px;
+    width: 800px;
     height: 100px;
 }
 </style>
 
 
     <h4> Create a new thread: </h4>
-    <form class="col-md-12" method='POST' action=''> {% csrf_token %}
+    <div class="container" style="padding:20px; 
+                                  background-color: rgba(176,196,222, 0.5);
+                                  border-radius:15px;">
+    <form class="span12" method='POST' action=''> {% csrf_token %}
       {{ threadform.as_p }}
       {{ disease_choice_form.as_p }}
       <input type='submit'>
      </form>
+    </div>
     <hr>
+    
 
   {% if previousthreads %}
     <h4> Previous threads: </h4>
     {% for t in previousthreads %}
-    <div class="col-sm-12" style="padding:20px; 
-                              background-color: rgba(176,196,222, 100)">
-      <strong> Created By: {{t.senderID.username}}
-        <br> To: {{t.receiverID.username}}
-        <br> Subject: {{t.subject}}
-        <br>
-        {% if profile.gender %} Gender: {{profile.gender}} {% endif %}
-        <br>
-        {% if profile.height %} {{profile.height}}cm {% endif %} 
-        {% if profile.weight %} {{profile.weight}}lbs {% endif %}        
-        {% if profile.dateOfBirth %}<br> Birth Date:  {{profile.dateOfBirth}} {% endif %}
-        <br>
-        Last Updated: {{t.lastUpdated}}
-      </strong>
+    <div class="container" style="padding:20px; 
+                                  background-color: rgba(176,196,222, 0.5);
+                                  border-radius:15px;">
+      <div class="row">
+        <div class="span12">
+          <h4> Subject: {{t.subject}} </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span4">
+          <strong> 
+           Created By: {{t.senderID.username}}
+          <br> To: {{t.receiverID.username}} 
+          <br> Last Updated: {{t.lastUpdated}}
+           </strong>
+        </div>
+        <div class="span4">
+          <strong>
+          {% if profile.gender %} Gender: {{profile.gender}} {% endif %}
+          <br>
+          {% if profile.height %} {{profile.height}}cm {% endif %} 
+          {% if profile.weight %} {{profile.weight}}lbs {% endif %}        
+          {% if profile.dateOfBirth %}<br> Birth Date:  {{profile.dateOfBirth}} {% endif %}
+          <br>
+          </strong>
+        </div>
+      </div>
+      
       <hr>
       {% if t.chart %} <iframe src="{{ t.chart }}", 
                         width="692", 
@@ -58,17 +77,30 @@
                         scrolling="no">
                       </iframe> {% endif %}
       {% for m in t.message_set.all %} <br>
+      <div class="row">
+        <div class="span12" style="border:0px;
+                                   background-color: rgba(176,196,222, 1);
+                                   border-radius:5px;
+                                   padding:5px;">
       <strong> {{ m.senderID.username }}: </strong>
       <br>
-      {{ m.message }}
-      <br><br>
+        {{ m.message }}
+        </div>
+      </div>
+      <br>
       {% endfor %}
-      
-      <form class="col-md-12" method='POST' action=''> {% csrf_token %}
-        {{ messageform.as_p }}
-        <input type="hidden" id="id_createmsg-thread_id"  name="createmsg-thread_id" value="{{ t.pk }}">
-        <input type='submit'>
-      </form>
+      <br>
+      <div class="row">
+        <div class="span12" style="border:0px;
+                                   background-color: rgba(176,196,222, 1);
+                                   border-radius:15px">
+          <form method='POST' action='' style="padding:10px;"> {% csrf_token %}
+              {{ messageform.as_p }}
+              <input type="hidden" id="id_createmsg-thread_id"  name="createmsg-thread_id" value="{{ t.pk }}">
+              <input type='submit'>                                                            
+          </form>
+        </div>
+      </div>
     </div>
     <br>
     {% endfor %}

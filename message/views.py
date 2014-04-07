@@ -50,6 +50,13 @@ def messages(request):
         obj.senderID = user
         if request.POST['fullName'] == 'Diabetes Type 1':
           obj.chart = "https://plot.ly/~cloudhealth/4"
+        elif request.POST['fullName'] == 'Diabetes Type 2':
+          obj.chart = "https://plot.ly/~cloudhealth/4"
+        elif request.POST['fullName'] == 'Seasonal Affective Disorder':
+          obj.chart = "http://plot.ly/~flann321/9/"
+        else: 
+          obj.chart = None
+          
         obj.save()
   #    messageform = MessageForm(prefix='createmsg')
   #else:
