@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Patient.profilePicture'
-        db.add_column(u'signup_patient', 'profilePicture',
-                      self.gf('django.db.models.fields.files.ImageField')(default='/home/action/workspace/cloudhealth/static/images/cloud_dialog.png', max_length=100, null=True, blank=True),
+        # Adding field 'Thread.chart'
+        db.add_column(u'message_thread', 'chart',
+                      self.gf('django.db.models.fields.TextField')(null=True, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Patient.profilePicture'
-        db.delete_column(u'signup_patient', 'profilePicture')
+        # Deleting field 'Thread.chart'
+        db.delete_column(u'message_thread', 'chart')
 
 
     models = {
@@ -56,24 +56,27 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'signup.caregiver': {
-            'Meta': {'object_name': 'Caregiver'},
-            'country': ('django_countries.fields.CountryField', [], {'max_length': '2'}),
+        u'message.message': {
+            'Meta': {'object_name': 'Message'},
+            'fromPatient': ('django.db.models.fields.BooleanField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'profilePicture': ('django.db.models.fields.DateField', [], {}),
-            'userID': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+            'message': ('django.db.models.fields.TextField', [], {}),
+            'receiverID': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'receiver'", 'to': u"orm['auth.User']"}),
+            'senderID': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sender'", 'to': u"orm['auth.User']"}),
+            'thread': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['message.Thread']"}),
+            'timeOpened': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'timeSent': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         },
-        u'signup.patient': {
-            'Meta': {'object_name': 'Patient'},
-            'country': ('django_countries.fields.CountryField', [], {'max_length': '2'}),
-            'dateOfBirth': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'gender': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
-            'height': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '3', 'blank': 'True'}),
+        u'message.thread': {
+            'Meta': {'object_name': 'Thread'},
+            'chart': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'profilePicture': ('django.db.models.fields.files.ImageField', [], {'default': "'/home/action/workspace/cloudhealth/static/images/cloud_dialog.png'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'userID': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'}),
-            'weight': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '3', 'blank': 'True'})
+            'lastUpdated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'}),
+            'receiverID': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'target'", 'to': u"orm['auth.User']"}),
+            'senderID': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'creator'", 'to': u"orm['auth.User']"}),
+            'subject': ('django.db.models.fields.TextField', [], {}),
+            'timeCreated': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         }
     }
 
-    complete_apps = ['signup']
+    complete_apps = ['message']

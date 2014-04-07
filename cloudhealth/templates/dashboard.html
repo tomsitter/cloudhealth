@@ -15,6 +15,13 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+
 <h2> Welcome {{full_name}} </h2>
 
 <iframe src="https://plot.ly/~cloudhealth/4", 

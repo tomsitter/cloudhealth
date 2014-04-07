@@ -27,6 +27,6 @@ low = {'x': gluc_date, 'y': [5]*8, 'type': 'scatter', 'mode': 'lines',
 
 
 plotly_plot = py.plot([readings, high, low])
-print ploty_url = plotly_plot['url'];
+print plotly_plot['url'];
 
 

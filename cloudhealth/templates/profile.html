@@ -17,14 +17,19 @@
 <div class="container">
   <h2> My Profile </h2>
 </div> <!-- /container -->
-
 <div class="container">
   <div class="row">
-    <div class="col-md-4"> Teexxtt<br>Some text on the right side I hope </div>
-    <div class="col-md-8">
+    <!-- <div class="col-md-4"> Teexxtt<br>Some text on the right side I hope </div> -->
+    <div class="col-md-6">
       <form method='POST' action=''> {% csrf_token %}
         {{ form.as_p }}
-        <input type='submit'>
+        <input type='submit' name='profile_submit'>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form method='POST' action=''> {% csrf_token %}
+        {{ disease_form.as_p }}
+        <input type='submit' name='disease_submit'>
       </form>
     </div>
   </div> <!-- /row -->

@@ -17,25 +17,63 @@
 
 {% block content %}
 
-  {% if messages %}
-    {% for m in messages %}
-    <div class="col-sm-12" style="border-style:solid; padding:20px">
-      <strong> From: {{m.senderID.username}}
-      <br>
-      {{m.timeSent}}
+<style>
+#id_createmsg-message, #id_createthread-subject {
+    width: 1000px;
+    height: 100px;
+}
+</style>
+
+
+    <h4> Create a new thread: </h4>
+    <form class="col-md-12" method='POST' action=''> {% csrf_token %}
+      {{ threadform.as_p }}
+      {{ disease_choice_form.as_p }}
+      <input type='submit'>
+     </form>
+    <hr>
+
+  {% if previousthreads %}
+    <h4> Previous threads: </h4>
+    {% for t in previousthreads %}
+    <div class="col-sm-12" style="padding:20px; 
+                              background-color: rgba(176,196,222, 100)">
+      <strong> Created By: {{t.senderID.username}}
+        <br> To: {{t.receiverID.username}}
+        <br> Subject: {{t.subject}}
+        <br>
+        {% if profile.gender %} Gender: {{profile.gender}} {% endif %}
+        <br>
+        {% if profile.height %} {{profile.height}}cm {% endif %} 
+        {% if profile.weight %} {{profile.weight}}lbs {% endif %}        
+        {% if profile.dateOfBirth %}<br> Birth Date:  {{profile.dateOfBirth}} {% endif %}
+        <br>
+        Last Updated: {{t.lastUpdated}}
       </strong>
       <hr>
+      {% if t.chart %} <iframe src="{{ t.chart }}", 
+                        width="692", 
+                        height="411", 
+                        seamless="seamless", 
+                        scrolling="no">
+                      </iframe> {% endif %}
+      {% for m in t.message_set.all %} <br>
+      <strong> {{ m.senderID.username }}: </strong>
+      <br>
       {{ m.message }}
+      <br><br>
+      {% endfor %}
+      
+      <form class="col-md-12" method='POST' action=''> {% csrf_token %}
+        {{ messageform.as_p }}
+        <input type="hidden" id="id_createmsg-thread_id"  name="createmsg-thread_id" value="{{ t.pk }}">
+        <input type='submit'>
+      </form>
     </div>
     <br>
     {% endfor %}
   {% else %}
-    <p>No messages are available.</p>
+<p><strong>No old threads found! Send a message to create a new thread.</strong></p>
   {% endif %}
-
-  <form class="col-md-12" method='POST' action=''> {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit'>
-  </form>
 
 {% endblock %}
