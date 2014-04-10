@@ -3,6 +3,7 @@
 from django.http import HttpResponseRedirect#,HttpResponse,  Http404 <- can use shortcut
 #from django.template import RequestContext, loader
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages as django_messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views import generic
@@ -48,16 +49,21 @@ def messages(request):
       if threadform.is_valid():
         obj = threadform.save(commit=False)
         obj.senderID = user
-        if request.POST['fullName'] == 'Diabetes Type 1':
-          obj.chart = "https://plot.ly/~cloudhealth/4"
-        elif request.POST['fullName'] == 'Diabetes Type 2':
-          obj.chart = "https://plot.ly/~cloudhealth/4"
-        elif request.POST['fullName'] == 'Seasonal Affective Disorder':
-          obj.chart = "http://plot.ly/~flann321/9/"
+
+        choice = request.POST['disease_module']
+        
+        if choice == 'dm1':
+          obj.chart = "https://plot.ly/~cloudhealth/11"
+        elif choice == 'dm2':
+          obj.chart = "https://plot.ly/~cloudhealth/11"
+        elif choice == 'sad':
+          obj.chart = "https://plot.ly/~cloudhealth/18"
         else: 
           obj.chart = None
           
         obj.save()
+      else:
+        django_messages.add_message(request, django_messages.ERROR, 'Could not create thread. Did you select a recipient and include a subject?')
   #    messageform = MessageForm(prefix='createmsg')
   #else:
   try:

@@ -69,12 +69,20 @@
                       </li> -->
                     </ul>
                     {% block account_actions %}
+                    {% if user.is_authenticated %}
+                    <ul class="nav pull-right">
+                      <li class="active"> <a href=#>Welcome {{user.username}}!</a> </li>
+                      <li> <a href={% url 'profile' %}>my Profile</a> </li>
+                      <li> <a href="/accounts/logout">Log out</a> </li>
+                    </ul>
+                    {% else %}
                     <form class="navbar-form pull-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
                       {% csrf_token %}
                       <input class="span2" id="id_username" maxlength="254" name="username" type="text" placeholder="User name" />
                       <input class="span2" id="id_password" name="password" type="password" placeholder="Password"/>
                       <button type="submit" class="btn">Sign in</button>
                     </form>
+                    {% endif %}
                     {% endblock %}
                     
                   </div><!--/.nav-collapse -->
@@ -89,13 +97,13 @@
             {% block content %}
             {% endblock %}
             <hr>
-            <footer>
+      <div id="footer">
+             <footer>
               <p>&copy; CAS757 Cloud Health, 2014</p>
             </footer>
-
+      </div>
       </div> <!-- /container -->
     </div> <!-- bannerbar -->
-    <hr>
 
   
     <!-- Le javascript

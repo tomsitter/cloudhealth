@@ -17,6 +17,12 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
 <style>
 #id_createmsg-message, #id_createthread-subject {
     width: 800px;
@@ -31,7 +37,12 @@
                                   border-radius:15px;">
     <form class="span12" method='POST' action=''> {% csrf_token %}
       {{ threadform.as_p }}
-      {{ disease_choice_form.as_p }}
+      <label> Include chart </label>
+      <select id="disease_module" name="disease_module"> 
+        <option value="none">------</option>
+        <option value="dm1">Diabetes Type 1</option>
+        <option value="sad">Seasonal Affective Disorder</option>
+      </select><br><br>
       <input type='submit'>
      </form>
     </div>
@@ -62,7 +73,7 @@
           {% if profile.gender %} Gender: {{profile.gender}} {% endif %}
           <br>
           {% if profile.height %} {{profile.height}}cm {% endif %} 
-          {% if profile.weight %} {{profile.weight}}lbs {% endif %}        
+          {% if profile.weight %} {{profile.weight}}kg {% endif %}        
           {% if profile.dateOfBirth %}<br> Birth Date:  {{profile.dateOfBirth}} {% endif %}
           <br>
           </strong>
@@ -105,7 +116,7 @@
     <br>
     {% endfor %}
   {% else %}
-<p><strong>No old threads found! Send a message to create a new thread.</strong></p>
+<p><strong>No previous threads found.</strong></p>
   {% endif %}
 
 {% endblock %}
