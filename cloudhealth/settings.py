@@ -161,6 +161,7 @@ INSTALLED_APPS = (
     'message',
     'diabetes',
     'profile',
+    'dashboard',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

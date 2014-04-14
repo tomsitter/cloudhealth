@@ -21,11 +21,6 @@ def login(request):
   else:
     pass# return a failed login message
 
-@login_required(login_url='/accounts/login')
-def dashboard(request):
-  return render_to_response('dashboard.html',
-                            {'full_name': request.user.username})
-
 def login_error(request):
   return render_to_response('login_error.html')
 
