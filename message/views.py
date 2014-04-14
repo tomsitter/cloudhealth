@@ -11,9 +11,9 @@ from django.utils import timezone
 from django.db.models import Q
 from .forms import MessageForm, ThreadForm
 from diabetes.models import BloodSugar
-from signup.models import Patient, Caregiver, DiseaseList, DiseaseChoices
+from profile.models import Patient, Caregiver, DiseaseList, DiseaseChoices
 from .models import Message, Thread
-from cloudhealth.forms import DiseaseChoiceForm
+from profile.forms import DiseaseChoiceForm
 
 @login_required(login_url='/accounts/login')
 def messages(request):

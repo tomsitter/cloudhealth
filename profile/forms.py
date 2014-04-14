@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import widgets
 from django.forms.extras.widgets import SelectDateWidget
-from signup.models import Patient, Caregiver, DiseaseList, DiseaseChoices
+from .models import Patient, Caregiver, DiseaseList, DiseaseChoices
 
 #GENDER_CHOICES = ('M', 'F', 'O')
 GENDER_CHOICES = (('M', 'Male'),
