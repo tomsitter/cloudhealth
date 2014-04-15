@@ -28,37 +28,48 @@
     width: 800px;
     height: 100px;
 }
+.msgbox {
+    background-color: rgba(176,196,222, 1);
+    border-radius:5px;
+    padding:10px;
+    margin-left: 30px;
+}
+.threadbox {
+    background-color: rgba(176,196,222, 0.5);
+    border-radius:15px;
+    padding:10px;
+}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 </style>
 
 
     <h4> Create a new thread: </h4>
-    <div class="container" style="padding:20px; 
-                                  background-color: rgba(176,196,222, 0.5);
-                                  border-radius:15px;">
-    <form class="span12" method='POST' action=''> {% csrf_token %}
-      {{ threadform.as_p }}
-      <label> Include chart </label>
-      <select id="disease_module" name="disease_module"> 
-        <option value="none">------</option>
-        <option value="dm1">Diabetes Type 1</option>
-        <option value="sad">Seasonal Affective Disorder</option>
-      </select><br><br>
-      <input type='submit'>
-     </form>
-    </div>
+    <div class="container threadbox">
+      <form class="span12" method='POST' action=''> {% csrf_token %}
+        {{ threadform.as_p }}
+        <label> Include chart </label>
+        <select id="disease_module" name="disease_module"> 
+          <option value="none">------</option>
+          <option value="dm1">Diabetes Type 1</option>
+          <option value="sad">Seasonal Affective Disorder</option>
+        </select>
+        <br><br>
+        <input type='submit'>
+       </form>
+     </div> <!-- /containter /threadbox -->
     <hr>
     
 
   {% if previousthreads %}
     <h4> Previous threads: </h4>
     {% for t in previousthreads %}
-    <div class="container" style="padding:20px; 
-                                  background-color: rgba(176,196,222, 0.5);
-                                  border-radius:15px;">
-      <div class="row">
-        <div class="span12">
+    <div class="container threadbox">
+      <div class="row span12">
           <h4> Subject: {{t.subject}} </h4>
-        </div>
       </div>
       <div class="row">
         <div class="span4">
@@ -77,8 +88,8 @@
           {% if profile.dateOfBirth %}<br> Birth Date:  {{profile.dateOfBirth}} {% endif %}
           <br>
           </strong>
-        </div>
-      </div>
+        </div> <!-- /span4 of patient data -->
+      </div> <!-- /row -->
       
       <hr>
       {% if t.chart %} <iframe src="{{ t.chart }}", 
@@ -89,22 +100,17 @@
                       </iframe> {% endif %}
       {% for m in t.message_set.all %} <br>
       <div class="row">
-        <div class="span12" style="border:0px;
-                                   background-color: rgba(176,196,222, 1);
-                                   border-radius:5px;
-                                   padding:5px;">
-      <strong> {{ m.senderID.username }}: </strong>
-      <br>
-        {{ m.message }}
+        <div class="msgbox">
+          <strong> {{ m.senderID.username }}: </strong>
+          <br>
+          {{ m.message }}
         </div>
       </div>
       <br>
       {% endfor %}
       <br>
       <div class="row">
-        <div class="span12" style="border:0px;
-                                   background-color: rgba(176,196,222, 1);
-                                   border-radius:15px">
+        <div class="msgbox">
           <form method='POST' action='' style="padding:10px;"> {% csrf_token %}
               {{ messageform.as_p }}
               <input type="hidden" id="id_createmsg-thread_id"  name="createmsg-thread_id" value="{{ t.pk }}">
@@ -112,11 +118,11 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> <!-- /container -->
     <br>
     {% endfor %}
   {% else %}
-<p><strong>No previous threads found.</strong></p>
+    <p><strong>No previous threads found.</strong></p>
   {% endif %}
 
 {% endblock %}
